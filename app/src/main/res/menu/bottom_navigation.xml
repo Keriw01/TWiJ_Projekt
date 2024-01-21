@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/slide_viewer"
+        android:title="@string/slide_viewer"
+        android:icon="@android:drawable/ic_menu_slideshow"/>
+    <item
+        android:id="@+id/code_viewer"
+        android:title="@string/code_viewer"
+        android:icon="@android:drawable/ic_menu_view"/>
+    <item
+        android:id="@+id/java_quiz"
+        android:title="@string/java_quiz"
+        android:icon="@android:drawable/ic_menu_help"/>
+    <item
+        android:id="@+id/java_tools"
+        android:title="@string/java_tools"
+        android:icon="@android:drawable/ic_menu_manage"/>
+</menu>

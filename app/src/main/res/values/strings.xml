@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">TWiJ_Projekt</string>
+    <string name="lecture_choose">Wybierz numer wykładu:</string>
+    <string name="first_button">Pierwsze</string>
+    <string name="last_button">Ostatnie</string>
+    <string name="slide_viewer">Slide Viewer</string>
+    <string name="code_viewer">Code Viewer</string>
+    <string name="java_quiz">Java Quiz</string>
+    <string name="java_tools">Java Tools</string>
+    <string name="read_button">Czytaj</string>
+    <string name="lab_choose">Wybierz labolatorium</string>
+    <string name="code_choose">Wybierz numer kodu źródłowego</string>
+    <string name="go_button">Przejdź</string>
+    <string name="url_hint">Wprowadź adres strony</string>
+    <string name="reset_quiz_button">Rozpocznij od nowa</string>
+    <string name="submit_quiz_button">Zatwierdź</string>
+</resources>

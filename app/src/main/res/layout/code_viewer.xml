@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/labLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/lab_choose" />
+
+    <Spinner
+        android:id="@+id/labSpinner"
+        android:layout_width="85dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/labLabel"
+        android:layout_marginStart="-12dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="16dp"
+        android:layout_toEndOf="@+id/labLabel" />
+
+    <TextView
+        android:id="@+id/codeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/labSpinner"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/code_choose" />
+
+    <Spinner
+        android:id="@+id/codeSpinner"
+        android:layout_width="84dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/codeLabel"
+        android:layout_marginStart="-82dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="16dp"
+        android:layout_toEndOf="@+id/codeLabel" />
+
+    <Button
+        android:id="@+id/btnReadTxtFile"
+        android:layout_width="126dp"
+        android:layout_height="60dp"
+        android:layout_above="@+id/scrollView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="82dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="19dp"
+        android:text="@string/read_button" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/codeSpinner"
+        android:layout_marginTop="16dp">
+
+        <WebView
+            android:id="@+id/txtFile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            android:text=""
+            android:textSize="16sp" />
+
+    </ScrollView>
+
+</RelativeLayout>

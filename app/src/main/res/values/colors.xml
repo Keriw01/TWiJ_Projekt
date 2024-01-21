@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="seedColor">#FFFF8800</color>
+    <color name="deepOrange">#FFFF5722</color>
+    <color name="primaryColor">#FFFF9800</color>
+    <color name="lightGreyColor">#FF9E9E9E</color>
+    <color name="darkGreyColor">#FF5E5E5E</color>
+    <color name="whiteColor">#FFFFFFFF</color>
+    <color name="blackColor">#FF000000</color>
+    <color name="dividerColor">#FFDCDCDC</color>
+    <color name="heartColor">#FFED5D53</color>
+    <color name="shadowColor">#FFDDDDDD</color>
+</resources>

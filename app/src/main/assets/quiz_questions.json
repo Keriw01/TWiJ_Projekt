@@ -1,0 +1,52 @@
+[
+  {
+    "question": "Jaki jest główny punkt aplikacji na Androida napisanej w Javie?",
+    "options": ["onCreate()", "onStart()", "main()", "initializeApp()"],
+    "correctOptionIndex": 0
+  },
+  {
+    "question": "Jakie są zalety korzystania z wzorca architektonicznego 'MVC' (Model-View-Controller) w aplikacjach Android?",
+    "options": ["Łatwiejsze testowanie i utrzymanie kodu", "Szybszy czas wykonania aplikacji", "Bardziej zaawansowane efekty wizualne", "Prostsze interakcje z użytkownikiem"],
+    "correctOptionIndex": 0
+  },
+  {
+    "question": "Do czego służy klasa 'Intent' w Androidzie?",
+    "options": ["Do obsługi zdarzeń dotyczących interfejsu użytkownika", "Do przechowywania danych w lokalnej bazie danych", "Do komunikacji między komponentami aplikacji", "Do definiowania struktury bazy danych SQLite"],
+    "correctOptionIndex": 2
+  },
+  {
+    "question": "Jakie są trzy główne komponenty aplikacji Android?",
+    "options": ["Layout, Service, Database", "Activity, Intent, Manifest", "Activity, Service, ContentProvider", "UI, Model, Controller"],
+    "correctOptionIndex": 2
+  },
+  {
+    "question": "Co to jest 'RecyclerView' w Androidzie i do czego służy?",
+    "options": ["Widok do wyświetlania obrazów", "Komponent do obsługi gestów dotykowych", "Kontener do przechowywania danych w formie listy lub siatki", "Narzędzie do debugowania aplikacji"],
+    "correctOptionIndex": 2
+  },
+  {
+    "question": "Jakie jest zastosowanie klasy 'AsyncTask' w kontekście programowania wielowątkowego w Androidzie?",
+    "options": ["Do obsługi zdarzeń dotyczących interfejsu użytkownika", "Do wykonywania operacji w tle, nie blokując interfejsu użytkownika", "Do tworzenia animacji w aplikacji", "Do zarządzania dostępem do bazy danych"],
+    "correctOptionIndex": 1
+  },
+  {
+    "question": "W jaki sposób deklarujemy nową aktywność (Activity) w pliku manifestu Androida?",
+    "options": ["<new-activity></new-activity>", "<activity></activity>", "<declare-activity></declare-activity>", "<add-activity></add-activity>"],
+    "correctOptionIndex": 1
+  },
+  {
+    "question": "Jaka jest różnica między 'px', 'dp' a 'sp' w kontekście jednostek w Androidzie?",
+    "options": ["Różnica kolorów pikseli", "Jednostki wielkości czcionki", "Jednostki rozmiaru ekranu", "Jednostki rozmiaru obrazu"],
+    "correctOptionIndex": 1
+  },
+  {
+    "question": "Do czego służy 'Gradle' w kontekście projektów Android Studio?",
+    "options": ["Do tworzenia interfejsu użytkownika", "Do zarządzania zależnościami projektu i budowania aplikacji", "Do tworzenia baz danych", "Do debugowania kodu"],
+    "correctOptionIndex": 1
+  },
+  {
+    "question": "Co to jest 'Parcelable' w Androidzie i do czego służy?",
+    "options": ["Interfejs do obsługi gestów dotykowych", "Mechanizm do przechowywania danych w obiekcie Intent", "Klasa do obsługi animacji", "Biblioteka do komunikacji z serwerem"],
+    "correctOptionIndex": 1
+  }
+]
