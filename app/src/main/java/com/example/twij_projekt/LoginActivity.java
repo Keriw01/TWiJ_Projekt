@@ -1,6 +1,8 @@
 package com.example.twij_projekt;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -117,6 +119,9 @@ public class LoginActivity extends AppCompatActivity {
                         String accessToken = jsonResult.getString("accessToken");
                         String refreshToken = jsonResult.getString("refreshToken");
 
+                        // Zapisz tokeny w pamięci podręcznej (SharedPreferences)
+                        saveTokensToSharedPreferences(accessToken, refreshToken);
+
                         // Przykład wyświetlenia wyniku w postaci toasta
                         Toast.makeText(LoginActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
 
@@ -137,6 +142,18 @@ public class LoginActivity extends AppCompatActivity {
                 // W przypadku błędu wyświetl informację o nieudanym logowaniu
                 Toast.makeText(LoginActivity.this, "Login failed. Check your credentials.", Toast.LENGTH_SHORT).show();
             }
+        }
+
+        // Metoda do zapisywania tokenów w pamięci podręcznej (SharedPreferences)
+        private void saveTokensToSharedPreferences(String accessToken, String refreshToken) {
+            SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+
+            editor.putString("accessToken", accessToken);
+            editor.putString("refreshToken", refreshToken);
+
+            // Zapisz zmiany
+            editor.apply();
         }
     }
 }

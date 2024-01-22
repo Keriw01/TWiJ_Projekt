@@ -16,4 +16,9 @@
         android:id="@+id/java_tools"
         android:title="@string/java_tools"
         android:icon="@android:drawable/ic_menu_manage"/>
+
+    <item
+        android:id="@+id/profile"
+        android:title="Profile"
+        android:icon="@android:drawable/ic_secure"/>
 </menu>

@@ -14,4 +14,12 @@
     <string name="url_hint">Wprowadź adres strony</string>
     <string name="reset_quiz_button">Rozpocznij od nowa</string>
     <string name="submit_quiz_button">Zatwierdź</string>
+    <string name="password_hint">Hasło</string>
+    <string name="login_button">Zaloguj</string>
+    <string name="register_button">Zarejestruj</string>
+    <string name="new_account">Nie masz konta? Rejestracja tutaj.</string>
+    <string name="have_account">Posiadasz już konto? Zaloguj się tutaj.</string>
+    <string name="profile">Profil</string>
+    <string name="logout">Wyloguj</string>
+    <string name="api_test">API QUIZ</string>
 </resources>

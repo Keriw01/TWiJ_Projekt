@@ -18,7 +18,7 @@
         android:id="@+id/editTextPasswordRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Password"
+        android:hint="@string/password_hint"
         android:inputType="textPassword"
         android:layout_below="@id/editTextEmailRegister"
         android:layout_marginBottom="16dp"/>
@@ -27,7 +27,7 @@
         android:id="@+id/buttonRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Register"
+        android:text="@string/register_button"
         android:layout_below="@id/editTextPasswordRegister"
         android:layout_marginTop="16dp"/>
 
@@ -35,7 +35,7 @@
         android:id="@+id/textViewLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Already have an account? Log in here."
+        android:text="@string/have_account"
         android:layout_below="@id/buttonRegister"
         android:layout_marginTop="16dp"
         android:textColor="@android:color/darker_gray"/>

@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity
         // Sprawdź, czy użytkownik jest zalogowany
         // (tutaj powinna być logika sprawdzająca stan zalogowania)
         boolean isLogged = getIntent().getBooleanExtra("isLogged", false);
+        isLogged=true;
         if (!isLogged) {
             // Jeśli użytkownik nie jest zalogowany, przekieruj do LoginActivity
             Intent intent = new Intent(this, LoginActivity.class);
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity
     CodeViewer codeViewer = new CodeViewer();
     JavaQuiz javaQuiz = new JavaQuiz();
     JavaTools javaTools = new JavaTools();
+    Profile profile = new Profile();
 
     @Override
     public boolean
@@ -78,6 +80,14 @@ public class MainActivity extends AppCompatActivity
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.flFragment, javaTools)
+                    .commit();
+            return true;
+        }
+        else if (itemId == R.id.profile)
+        {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.flFragment, profile)
                     .commit();
             return true;
         }

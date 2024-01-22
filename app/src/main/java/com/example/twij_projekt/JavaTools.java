@@ -1,8 +1,11 @@
 package com.example.twij_projekt;
+import android.net.http.SslError;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.AdapterView;
@@ -34,7 +37,13 @@ public class JavaTools extends Fragment {
         linkSpinner = view.findViewById(R.id.linkSpinner);
 
         myWebView.getSettings().setJavaScriptEnabled(true);
-        myWebView.setWebViewClient(new WebViewClient());
+        myWebView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+                // Obsłuż błąd SSL tutaj, na przykład zaakceptuj go (niezalecane w produkcji):
+                handler.proceed();
+            }
+        });
 
         // Dodanie predefiniowanych linków do Spinnera
         String[] links = {"https://www.oracle.com/java/technologies/", "https://docs.oracle.com/en/java/",

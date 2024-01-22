@@ -1,11 +1,14 @@
 package com.example.twij_projekt;
 
+import android.net.http.SslError;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -91,10 +94,15 @@ public class CodeViewer extends Fragment {
                     webSettings.setTextZoom(70);
                     webSettings.setDefaultFontSize(12);
                     webView.getSettings().setJavaScriptEnabled(true);
-
                     // Wyświetlenie sformatowanego kodu w WebView
                     webView.loadDataWithBaseURL(null, formattedCode, "text/html", "UTF-8", null);
-
+                    webView.setWebViewClient(new WebViewClient() {
+                        @Override
+                        public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+                            // Obsłuż błąd SSL tutaj, na przykład zaakceptuj go (niezalecane w produkcji):
+                            handler.proceed();
+                        }
+                    });
                     // Wyświetlenie komunikatu o sukcesie
                     Toast.makeText(getContext(), "Udało się odczytać plik", Toast.LENGTH_SHORT).show();
                 } catch (IOException e) {
