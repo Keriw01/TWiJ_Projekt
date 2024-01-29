@@ -114,11 +114,13 @@ public class RegisterActivity extends AppCompatActivity {
                         // Pobierz tokeny z JSON
                         String accessToken = jsonResult.getString("accessToken");
                         String refreshToken = jsonResult.getString("refreshToken");
+                        String email = jsonResult.getString("email");
 
                         // Zapisz tokeny w pamięci podręcznej (SharedPreferences)
-                        saveTokensToSharedPreferences(accessToken, refreshToken);
+                        saveUserToSharedPreferences(accessToken, refreshToken, email);
+
                         // Przykład wyświetlenia wyniku w postaci toasta
-                        Toast.makeText(RegisterActivity.this, "Register successful!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, "Zarejestrowano !", Toast.LENGTH_SHORT).show();
 
                         // Przejdź do MainActivity lub wykonaj inne akcje związane z zalogowaniem
                         Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
@@ -127,7 +129,7 @@ public class RegisterActivity extends AppCompatActivity {
                         finish();
                     } else {
                         // W przypadku błędu wyświetl informację o nieudanym logowaniu
-                        Toast.makeText(RegisterActivity.this, "Register failed.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, "Rejestracja nie udana !", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     // Błąd parsowania JSON
@@ -135,16 +137,17 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             } else {
                 // W przypadku błędu wyświetl informację o nieudanym logowaniu
-                Toast.makeText(RegisterActivity.this, "RegisterActivity failed.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterActivity.this, "Rejestracja nie udana !", Toast.LENGTH_SHORT).show();
             }
         }
         // Metoda do zapisywania tokenów w pamięci podręcznej (SharedPreferences)
-        private void saveTokensToSharedPreferences(String accessToken, String refreshToken) {
-            SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        private void saveUserToSharedPreferences(String accessToken, String refreshToken, String email) {
+            SharedPreferences sharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
 
             editor.putString("accessToken", accessToken);
             editor.putString("refreshToken", refreshToken);
+            editor.putString("email", email);
 
             // Zapisz zmiany
             editor.apply();

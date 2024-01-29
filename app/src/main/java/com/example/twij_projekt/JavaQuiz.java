@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.RadioButton;
+import android.widget.CheckBox;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import androidx.fragment.app.Fragment;
@@ -24,8 +24,8 @@ public class JavaQuiz extends Fragment {
     private Button restartButton;  // Przycisk do rozpoczęcia od nowa
     private int currentQuestionIndex = 0;  // Indeks bieżącego pytania
     private ArrayList<QuizQuestion> quizQuestions;  // Lista pytań w quizie
-    private int goodAnsewer = 0;  // Ilość dobrych odpowiedzi
-    private int badAnswer = 0;  // Ilość złych odpowiedzi
+    private int goodAnswers = 0;  // Ilość dobrych odpowiedzi
+    private int badAnswers = 0;  // Ilość złych odpowiedzi
 
     // Konstruktor klasy JavaQuiz
     public JavaQuiz() {
@@ -63,11 +63,7 @@ public class JavaQuiz extends Fragment {
             @Override
             public void onClick(View v) {
                 // Rozpoczęcie quizu od nowa
-                goodAnsewer=0;
-                badAnswer=0;
-                currentQuestionIndex = 0;
-                displayQuestion();
-                submitButton.setEnabled(true);
+                restartQuiz();
             }
         });
 
@@ -92,13 +88,14 @@ public class JavaQuiz extends Fragment {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 String questionText = jsonObject.getString("question");
                 JSONArray optionsArray = jsonObject.getJSONArray("options");
-                ArrayList<String> options = new ArrayList<>();
+                ArrayList<QuizOption> options = new ArrayList<>();
                 for (int j = 0; j < optionsArray.length(); j++) {
-                    options.add(optionsArray.getString(j));
+                    JSONObject optionObject = optionsArray.getJSONObject(j);
+                    String optionText = optionObject.getString("text");
+                    boolean isCorrect = optionObject.getBoolean("isCorrect");
+                    options.add(new QuizOption(optionText, isCorrect));
                 }
-                int correctOptionIndex = jsonObject.getInt("correctOptionIndex");
-
-                QuizQuestion quizQuestion = new QuizQuestion(questionText, options, correctOptionIndex);
+                QuizQuestion quizQuestion = new QuizQuestion(questionText, options);
                 quizQuestions.add(quizQuestion);
             }
 
@@ -119,15 +116,18 @@ public class JavaQuiz extends Fragment {
             optionsRadioGroup.removeAllViews();
 
             // Dodanie przycisków radio dla każdej opcji
-            for (int i = 0; i < currentQuestion.getOptions().size(); i++) {
-                RadioButton radioButton = new RadioButton(getContext());
-                radioButton.setText(currentQuestion.getOptions().get(i));
-                optionsRadioGroup.addView(radioButton);
+            for (QuizOption option : currentQuestion.getOptions()) {
+                CheckBox checkBox = new CheckBox(getContext());
+                checkBox.setText(option.getText());
+                optionsRadioGroup.addView(checkBox);
+
+                // Zaznacz opcje, które były wcześniej zaznaczone
+                checkBox.setChecked(option.isChecked());
             }
 
         } else {
             // Quiz zakończony
-            questionTextView.setText("Quiz zakończony!\nTwój wynik to "+goodAnsewer +" poprawnych i "+badAnswer+" niepoprawnych ;)");
+            questionTextView.setText("Quiz zakończony!\nTwój wynik to " + goodAnswers + " poprawnych i " + badAnswers + " niepoprawnych.\n"+getGrade());
             optionsRadioGroup.removeAllViews();
             submitButton.setEnabled(false);
         }
@@ -135,19 +135,71 @@ public class JavaQuiz extends Fragment {
 
     // Metoda sprawdzająca poprawność odpowiedzi
     private void checkAnswer() {
-        int selectedOptionIndex = optionsRadioGroup.indexOfChild(
-                optionsRadioGroup.findViewById(optionsRadioGroup.getCheckedRadioButtonId()));
+        QuizQuestion currentQuestion = quizQuestions.get(currentQuestionIndex);
+        ArrayList<QuizOption> options = currentQuestion.getOptions();
 
-        if (selectedOptionIndex == quizQuestions.get(currentQuestionIndex).getCorrectOptionIndex()) {
-            // Poprawna odpowiedź
-            goodAnsewer++;
+        // Sprawdzenie odpowiedzi
+        for (int i = 0; i < options.size(); i++) {
+            CheckBox checkBox = (CheckBox) optionsRadioGroup.getChildAt(i);
+            options.get(i).setChecked(checkBox.isChecked());
+        }
+
+        // Sprawdzenie poprawności odpowiedzi
+        boolean isAnswerCorrect = true;
+
+        for (QuizOption option : options) {
+            if (option.isCorrect() != option.isChecked()) {
+                isAnswerCorrect = false;
+                break;
+            }
+        }
+
+        // Aktualizacja wyniku
+        if (isAnswerCorrect) {
+            goodAnswers++;
         } else {
-            // Niepoprawna odpowiedź
-            badAnswer++;
+            badAnswers++;
         }
 
         // Przejście do kolejnego pytania
         currentQuestionIndex++;
         displayQuestion();
+    }
+
+    // Metoda obliczająca ocenę
+    private String getGrade() {
+        String grade = "Ocena: ";
+        int totalQuestions = quizQuestions.size();
+        double percentage = (double) goodAnswers / totalQuestions * 100;
+
+        if (percentage >= 90) {
+            return grade+"5.0";
+        } else if (percentage >= 85) {
+            return grade+"4.5";
+        } else if (percentage >= 75) {
+            return grade+"4";
+        } else if (percentage >= 65) {
+            return grade+"3.5";
+        }else if (percentage >= 55) {
+            return grade+"3";
+        } else {
+            return grade+"2.0";
+        }
+    }
+
+    // Metoda restartująca quiz
+    private void restartQuiz() {
+        goodAnswers = 0;
+        badAnswers = 0;
+        currentQuestionIndex = 0;
+
+        for (QuizQuestion question : quizQuestions) {
+            for (QuizOption option : question.getOptions()) {
+                option.setChecked(false);
+            }
+        }
+
+        displayQuestion();
+        submitButton.setEnabled(true);
     }
 }

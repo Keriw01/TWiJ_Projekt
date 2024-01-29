@@ -17,13 +17,16 @@
 
         <activity
             android:name=".LoginActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".RegisterActivity">
+        <activity
+            android:name=".RegisterActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
         </activity>
 
         <activity

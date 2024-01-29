@@ -4,24 +4,19 @@ import java.util.ArrayList;
 
 public class QuizQuestion {
     private String questionText;
-    private ArrayList<String> options;
-    private int correctOptionIndex;
+    private ArrayList<QuizOption> options;
 
-    public QuizQuestion(String questionText, ArrayList<String> options, int correctOptionIndex) {
+    public QuizQuestion(String questionText, ArrayList<QuizOption> options) {
         this.questionText = questionText;
         this.options = options;
-        this.correctOptionIndex = correctOptionIndex;
     }
 
     public String getQuestionText() {
         return questionText;
     }
 
-    public ArrayList<String> getOptions() {
+    public ArrayList<QuizOption> getOptions() {
         return options;
     }
-
-    public int getCorrectOptionIndex() {
-        return correctOptionIndex;
-    }
 }
+

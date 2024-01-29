@@ -1,3 +1,29 @@
+/*
+Aplikacja JAVA PRO zawiera:
+
+Logowanie/Rejestracja:
+Aplikacja umożliwia użytkownikom logowanie się lub rejestrację, co pozwala na dostęp do kolejnych funkcji.
+
+Autoryzacja i Tokeny:
+Po udanym logowaniu użytkownik otrzymuje accessToken i refreshToken, które są używane do autoryzacji i utrzymania sesji użytkownika, zapewniając bezpieczeństwo dostępu do spersonalizowanych treści.
+
+Slide Viewer:
+Wirtualny przegląd slajdów z wykładów z danego przedmiotu. Użytkownik ma możliwość wyboru konkretnego numeru wykładu (np. W01, W02) oraz korzystania z przycisków nawigacyjnych: następny, poprzedni, 'Pierwsze' i 'Ostatnie' w celu łatwiejszego poruszania się między slajdami.
+
+Code Viewer:
+Przeglądarka kodów źródłowych, która umożliwia użytkownikom przeglądanie przykładów z języka Java, zgodnych z instrukcjami laboratoryjnymi. Umożliwia wybór konkretnego numeru laboratorium i numeru przykładu, po wciśnięciu przycisku 'Czytaj' zostanie wyświetlony wybrany kod źródłowy.
+
+Java Quiz:
+System przeprowadzania testów z przedmiotu "Programowanie w języku Java". Oferuje testy wielokrotnego wyboru z prawdziwymi pytaniami, punktacją i możliwością otrzymywania ocen. Dane do testów są wczytywane z pliku JSON, co pozwala na elastyczne zarządzanie treściami testów.
+
+Java Tools:
+W tym module znajduje się przeglądarka internetowa oraz linki do różnych narzędzi i frameworków związanych z językiem Java. Użytkownicy mają dostęp do przydatnych zasobów takich jak Java, Java Tutorials, Java Technologies itp. Ponadto, istnieje możliwość wpisania własnej strony WWW, co umożliwia dostęp do dodatkowych zasobów online.
+
+Profile:
+Tutaj znajduje się informacja o bieżącym użytkowniku (adres email) oraz przycisk 'Wyloguj'.
+
+ */
+
 package com.example.twij_projekt;
 
 import android.content.Intent;
@@ -21,9 +47,8 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         // Sprawdź, czy użytkownik jest zalogowany
-        // (tutaj powinna być logika sprawdzająca stan zalogowania)
         boolean isLogged = getIntent().getBooleanExtra("isLogged", false);
-        isLogged=true;
+
         if (!isLogged) {
             // Jeśli użytkownik nie jest zalogowany, przekieruj do LoginActivity
             Intent intent = new Intent(this, LoginActivity.class);

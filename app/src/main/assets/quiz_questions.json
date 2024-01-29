@@ -1,52 +1,92 @@
 [
   {
-    "question": "Jaki jest główny punkt aplikacji na Androida napisanej w Javie?",
-    "options": ["onCreate()", "onStart()", "main()", "initializeApp()"],
-    "correctOptionIndex": 0
-  },
-  {
-    "question": "Jakie są zalety korzystania z wzorca architektonicznego 'MVC' (Model-View-Controller) w aplikacjach Android?",
-    "options": ["Łatwiejsze testowanie i utrzymanie kodu", "Szybszy czas wykonania aplikacji", "Bardziej zaawansowane efekty wizualne", "Prostsze interakcje z użytkownikiem"],
-    "correctOptionIndex": 0
+    "question": "Jakie są zalety korzystania z wzorca architektonicznego 'MVC' w aplikacjach Android?",
+    "options": [
+      {"text": "Łatwiejsze testowanie i utrzymanie kodu", "isCorrect": true},
+      {"text": "Szybszy czas wykonania aplikacji", "isCorrect": false},
+      {"text": "Bardziej zaawansowane efekty wizualne", "isCorrect": false},
+      {"text": "Prostsze interakcje z użytkownikiem", "isCorrect": true}
+    ]
   },
   {
     "question": "Do czego służy klasa 'Intent' w Androidzie?",
-    "options": ["Do obsługi zdarzeń dotyczących interfejsu użytkownika", "Do przechowywania danych w lokalnej bazie danych", "Do komunikacji między komponentami aplikacji", "Do definiowania struktury bazy danych SQLite"],
-    "correctOptionIndex": 2
+    "options": [
+      {"text": "Do obsługi zdarzeń dotyczących interfejsu użytkownika", "isCorrect": false},
+      {"text": "Do przechowywania danych w lokalnej bazie danych", "isCorrect": false},
+      {"text": "Do komunikacji między komponentami aplikacji", "isCorrect": true},
+      {"text": "Do definiowania struktury bazy danych SQLite", "isCorrect": false}
+    ]
   },
   {
     "question": "Jakie są trzy główne komponenty aplikacji Android?",
-    "options": ["Layout, Service, Database", "Activity, Intent, Manifest", "Activity, Service, ContentProvider", "UI, Model, Controller"],
-    "correctOptionIndex": 2
+    "options": [
+      {"text": "Layout, Service, Database", "isCorrect": false},
+      {"text": "Activity, Intent, Manifest", "isCorrect": true},
+      {"text": "Activity, Service, ContentProvider", "isCorrect": false},
+      {"text": "UI, Model, Controller", "isCorrect": false}
+    ]
   },
   {
     "question": "Co to jest 'RecyclerView' w Androidzie i do czego służy?",
-    "options": ["Widok do wyświetlania obrazów", "Komponent do obsługi gestów dotykowych", "Kontener do przechowywania danych w formie listy lub siatki", "Narzędzie do debugowania aplikacji"],
-    "correctOptionIndex": 2
+    "options": [
+      {"text": "Widok do wyświetlania obrazów", "isCorrect": false},
+      {"text": "Komponent do obsługi gestów dotykowych", "isCorrect": false},
+      {"text": "Kontener do przechowywania danych w formie listy lub siatki", "isCorrect": true},
+      {"text": "Narzędzie do debugowania aplikacji", "isCorrect": false}
+    ]
   },
   {
     "question": "Jakie jest zastosowanie klasy 'AsyncTask' w kontekście programowania wielowątkowego w Androidzie?",
-    "options": ["Do obsługi zdarzeń dotyczących interfejsu użytkownika", "Do wykonywania operacji w tle, nie blokując interfejsu użytkownika", "Do tworzenia animacji w aplikacji", "Do zarządzania dostępem do bazy danych"],
-    "correctOptionIndex": 1
+    "options": [
+      {"text": "Do obsługi zdarzeń dotyczących interfejsu użytkownika", "isCorrect": false},
+      {"text": "Do wykonywania operacji w tle, nie blokując interfejsu użytkownika", "isCorrect": true},
+      {"text": "Do tworzenia animacji w aplikacji", "isCorrect": false},
+      {"text": "Do zarządzania dostępem do bazy danych", "isCorrect": false}
+    ]
   },
   {
     "question": "W jaki sposób deklarujemy nową aktywność (Activity) w pliku manifestu Androida?",
-    "options": ["<new-activity></new-activity>", "<activity></activity>", "<declare-activity></declare-activity>", "<add-activity></add-activity>"],
-    "correctOptionIndex": 1
+    "options": [
+      {"text": "<new-activity></new-activity>", "isCorrect": false},
+      {"text": "<activity></activity>", "isCorrect": true},
+      {"text": "<declare-activity></declare-activity>", "isCorrect": false},
+      {"text": "<add-activity></add-activity>", "isCorrect": false}
+    ]
   },
   {
     "question": "Jaka jest różnica między 'px', 'dp' a 'sp' w kontekście jednostek w Androidzie?",
-    "options": ["Różnica kolorów pikseli", "Jednostki wielkości czcionki", "Jednostki rozmiaru ekranu", "Jednostki rozmiaru obrazu"],
-    "correctOptionIndex": 1
+    "options": [
+      {"text": "Różnica kolorów pikseli", "isCorrect": false},
+      {"text": "Jednostki wielkości czcionki", "isCorrect": true},
+      {"text": "Jednostki rozmiaru ekranu", "isCorrect": false},
+      {"text": "Jednostki rozmiaru obrazu", "isCorrect": false}
+    ]
   },
   {
     "question": "Do czego służy 'Gradle' w kontekście projektów Android Studio?",
-    "options": ["Do tworzenia interfejsu użytkownika", "Do zarządzania zależnościami projektu i budowania aplikacji", "Do tworzenia baz danych", "Do debugowania kodu"],
-    "correctOptionIndex": 1
+    "options": [
+      {"text": "Do tworzenia interfejsu użytkownika", "isCorrect": false},
+      {"text": "Do zarządzania zależnościami projektu i budowania aplikacji", "isCorrect": true},
+      {"text": "Do tworzenia baz danych", "isCorrect": false},
+      {"text": "Do debugowania kodu", "isCorrect": false}
+    ]
   },
   {
     "question": "Co to jest 'Parcelable' w Androidzie i do czego służy?",
-    "options": ["Interfejs do obsługi gestów dotykowych", "Mechanizm do przechowywania danych w obiekcie Intent", "Klasa do obsługi animacji", "Biblioteka do komunikacji z serwerem"],
-    "correctOptionIndex": 1
+    "options": [
+      {"text": "Interfejs do obsługi gestów dotykowych", "isCorrect": false},
+      {"text": "Mechanizm do przechowywania danych w obiekcie Intent", "isCorrect": true},
+      {"text": "Klasa do obsługi animacji", "isCorrect": false},
+      {"text": "Biblioteka do komunikacji z serwerem", "isCorrect": false}
+    ]
+  },
+  {
+    "question": "Jakie są zalety korzystania z wzorca architektonicznego 'MVVM' w aplikacjach Android?",
+    "options": [
+      {"text": "Łatwiejsze testowanie i utrzymanie kodu", "isCorrect": true},
+      {"text": "Szybszy czas wykonania aplikacji", "isCorrect": false},
+      {"text": "Bardziej zaawansowane efekty wizualne", "isCorrect": false},
+      {"text": "Prostsze interakcje z użytkownikiem", "isCorrect": true}
+    ]
   }
 ]
