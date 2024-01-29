@@ -51,6 +51,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         textViewLogin.setOnClickListener(new View.OnClickListener() {
             @Override
+            // Zakończenie bieżącej aktywności co spowoduje przejście do LoginActivity
             public void onClick(View v) {
                 finish();
             }
@@ -62,13 +63,13 @@ public class RegisterActivity extends AppCompatActivity {
             String email = params[0];
             String password = params[1];
 
-            // Ustaw URL API logowania
+            // Ustaw URL API rejestracji
             String registerUrl = "http://audiobookhsetvo.mooo.com/api/audio_book.php/registration";
 
             // Utwórz klienta OkHttp
             OkHttpClient client = new OkHttpClient();
 
-            // Utwórz ciało żądania z danymi logowania
+            // Utwórz ciało żądania z danymi rejestracji
             RequestBody requestBody = new FormBody.Builder()
                     .add("email", email)
                     .add("password", password)
@@ -86,7 +87,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 // Sprawdź, czy żądanie zakończyło się sukcesem (kod 200)
                 if (response.isSuccessful()) {
-                    // Pobierz odpowiedź jako string
+                    // Zwraca odpowiedź result dla onPostExecute jako string
                     return response.body().string();
                 } else {
                     // Jeśli kod odpowiedzi nie jest 200, zwróć null lub inny kod błędu

@@ -90,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 // Sprawdź, czy żądanie zakończyło się sukcesem (kod 200)
                 if (response.isSuccessful()) {
-                    // Pobierz odpowiedź jako string
+                    // Zwraca odpowiedź result dla onPostExecute jako string
                     return response.body().string();
                 } else {
                     // Jeśli kod odpowiedzi nie jest 200, zwróć null lub inny kod błędu

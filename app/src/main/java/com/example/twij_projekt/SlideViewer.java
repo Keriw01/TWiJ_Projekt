@@ -71,9 +71,9 @@ public class SlideViewer extends Fragment {
 
         btn_first_image.setOnClickListener(v -> {
             String selectedLecture = (String) spinnerLectureNumber.getSelectedItem();
-            currentImageIndexMap.put(selectedLecture, 0);
-
             int[] images = lectureImagesMap.get(selectedLecture);
+
+            currentImageIndexMap.put(selectedLecture, 0);
             iv_display.setImageResource(images[currentImageIndexMap.get(selectedLecture)]);
         });
 
