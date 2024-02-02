@@ -3,12 +3,12 @@ package com.example.twij_projekt;
 public class QuizOption {
     private String text;
     private boolean isCorrect;
-    private boolean isChecked;  // Dodane pole do przechowywania informacji o zaznaczeniu opcji
+    private boolean isChecked;
 
     public QuizOption(String text, boolean isCorrect) {
         this.text = text;
         this.isCorrect = isCorrect;
-        this.isChecked = false;  // Domyślnie opcja nie jest zaznaczona
+        this.isChecked = false;
     }
 
     public String getText() {

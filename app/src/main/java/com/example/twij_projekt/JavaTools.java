@@ -23,7 +23,6 @@ public class JavaTools extends Fragment {
     private Spinner linkSpinner;
 
     public JavaTools() {
-        // wymagane puste publiczne konstruktory
     }
 
     @Override
@@ -40,12 +39,10 @@ public class JavaTools extends Fragment {
         myWebView.setWebViewClient(new WebViewClient() {
             @Override
             public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
-                // Obsłuż błąd SSL tutaj, na przykład zaakceptuj go (niezalecane w produkcji):
                 handler.proceed();
             }
         });
 
-        // Dodanie predefiniowanych linków do Spinnera
         String[] links = {"https://www.oracle.com/java/technologies/", "https://docs.oracle.com/en/java/",
                 "https://docs.oracle.com/javase/tutorial/"};
 
@@ -53,7 +50,6 @@ public class JavaTools extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         linkSpinner.setAdapter(adapter);
 
-        // Obsługa zdarzenia wyboru linku z Spinnera
         linkSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
@@ -63,7 +59,6 @@ public class JavaTools extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
-                // Nie trzeba implementować, ale jest wymagane
             }
         });
 

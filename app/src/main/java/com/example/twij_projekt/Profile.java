@@ -29,36 +29,28 @@ public class Profile extends Fragment {
 
 
     public Profile() {
-        // Wymagane puste publiczne konstruktory
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.profile, container, false);
 
-        // Inicjalizacja elementów interfejsu użytkownika
         emailTextView = view.findViewById(R.id.emailTextView);
         logoutButton = view.findViewById(R.id.logoutButton);
 
-
-        // Pobranie AccessToken z pamięci podręcznej
         String accessToken = getAccessTokenFromSharedPreferences();
         String email = getEmailFromSharedPreferences();
 
-        // Sprawdź, czy AccessToken jest dostępny
         if (email != null) {
             emailTextView.setText(email);
         } else if(accessToken != null){
-            // Wykonaj zapytanie do API o dane użytkownika
             new FetchUserDataTask().execute(accessToken);
         }else{
-            // AccessToken nie jest dostępny, obsłuż tę sytuację
             Toast.makeText(requireContext(), "Access token nie dostępny. Zaloguj się ponownie.", Toast.LENGTH_SHORT).show();
 
             handleLogout();
         }
 
-        // Obsługa przycisku wylogowania
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,15 +62,12 @@ public class Profile extends Fragment {
         return view;
     }
 
-    // Metoda do obsługi wylogowywania
     private void handleLogout() {
         clearTokensFromSharedPreferences();
 
-        // Uruchom LoginActivity
         Intent intent = new Intent(requireContext(), LoginActivity.class);
         startActivity(intent);
 
-        // Zakończ bieżącą aktywność
         requireActivity().finish();
     }
 
@@ -104,7 +93,6 @@ public class Profile extends Fragment {
         editor.remove("refreshToken");
         editor.remove("email");
 
-        // Zapisz zmiany
         editor.apply();
     }
 
@@ -115,15 +103,12 @@ public class Profile extends Fragment {
             String userDataUrl = "http://audiobookhsetvo.mooo.com/api/audio_book.php/user";
 
             try {
-                // Utwórz URL i połączenie HttpURLConnection
                 URL url = new URL(userDataUrl);
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 
-                // Ustaw nagłówki żądania
                 urlConnection.setRequestMethod("GET");
                 urlConnection.setRequestProperty("Authorization", accessToken);
 
-                // Pobierz dane odpowiedzi
                 BufferedReader reader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
                 StringBuilder stringBuilder = new StringBuilder();
                 String line;
@@ -132,7 +117,6 @@ public class Profile extends Fragment {
                     stringBuilder.append(line).append("\n");
                 }
 
-                // Zamknij połączenie i odczyt
                 reader.close();
                 urlConnection.disconnect();
 
@@ -149,10 +133,8 @@ public class Profile extends Fragment {
 
             if (result != null) {
                 try {
-                    // Przetwórz dane użytkownika
                     JSONObject jsonResult = new JSONObject(result);
 
-                    // Sprawdź, czy otrzymano dane użytkownika
                     if (jsonResult.has("email")) {
                         String userEmail = jsonResult.getString("email");
                         emailTextView.setText(userEmail);
@@ -161,7 +143,6 @@ public class Profile extends Fragment {
                     e.printStackTrace();
                 }
             } else {
-                // Obsłuż błąd pobierania danych użytkownika
                 Toast.makeText(requireContext(), "Błąd podczas pobierania danych o użytkowniku", Toast.LENGTH_SHORT).show();
             }
         }

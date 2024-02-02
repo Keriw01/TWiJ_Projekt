@@ -51,7 +51,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         textViewLogin.setOnClickListener(new View.OnClickListener() {
             @Override
-            // Zakończenie bieżącej aktywności co spowoduje przejście do LoginActivity
             public void onClick(View v) {
                 finish();
             }
@@ -63,38 +62,29 @@ public class RegisterActivity extends AppCompatActivity {
             String email = params[0];
             String password = params[1];
 
-            // Ustaw URL API rejestracji
             String registerUrl = "http://audiobookhsetvo.mooo.com/api/audio_book.php/registration";
 
-            // Utwórz klienta OkHttp
             OkHttpClient client = new OkHttpClient();
 
-            // Utwórz ciało żądania z danymi rejestracji
             RequestBody requestBody = new FormBody.Builder()
                     .add("email", email)
                     .add("password", password)
                     .build();
 
-            // Utwórz żądanie HTTP POST
             Request request = new Request.Builder()
                     .url(registerUrl)
                     .post(requestBody)
                     .build();
 
             try {
-                // Wykonaj żądanie i pobierz odpowiedź
                 Response response = client.newCall(request).execute();
 
-                // Sprawdź, czy żądanie zakończyło się sukcesem (kod 200)
                 if (response.isSuccessful()) {
-                    // Zwraca odpowiedź result dla onPostExecute jako string
                     return response.body().string();
                 } else {
-                    // Jeśli kod odpowiedzi nie jest 200, zwróć null lub inny kod błędu
                     return null;
                 }
             } catch (Exception e) {
-                // Obsłuż błąd w przypadku niepowodzenia żądania
                 Log.e("RegisterActivity", "Error during registerActivity request", e);
                 return null;
             }
@@ -104,44 +94,34 @@ public class RegisterActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-            // Sprawdź, czy wynik nie jest pusty
             if (result != null) {
                 try {
-                    // Otrzymany wynik to JSON, przetwórz go
                     JSONObject jsonResult = new JSONObject(result);
 
-                    // Sprawdź status w odpowiedzi
                     if (jsonResult.has("status") && jsonResult.getString("status").equals("success")) {
-                        // Pobierz tokeny z JSON
+
                         String accessToken = jsonResult.getString("accessToken");
                         String refreshToken = jsonResult.getString("refreshToken");
                         String email = jsonResult.getString("email");
 
-                        // Zapisz tokeny w pamięci podręcznej (SharedPreferences)
                         saveUserToSharedPreferences(accessToken, refreshToken, email);
 
-                        // Przykład wyświetlenia wyniku w postaci toasta
                         Toast.makeText(RegisterActivity.this, "Zarejestrowano !", Toast.LENGTH_SHORT).show();
 
-                        // Przejdź do MainActivity lub wykonaj inne akcje związane z zalogowaniem
                         Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                         intent.putExtra("isLogged", true);
                         startActivity(intent);
                         finish();
                     } else {
-                        // W przypadku błędu wyświetl informację o nieudanym logowaniu
                         Toast.makeText(RegisterActivity.this, "Rejestracja nie udana !", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
-                    // Błąd parsowania JSON
                     Log.e("RegisterActivityActivity", "Error parsing JSON response", e);
                 }
             } else {
-                // W przypadku błędu wyświetl informację o nieudanym logowaniu
                 Toast.makeText(RegisterActivity.this, "Rejestracja nie udana !", Toast.LENGTH_SHORT).show();
             }
         }
-        // Metoda do zapisywania tokenów w pamięci podręcznej (SharedPreferences)
         private void saveUserToSharedPreferences(String accessToken, String refreshToken, String email) {
             SharedPreferences sharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -150,7 +130,6 @@ public class RegisterActivity extends AppCompatActivity {
             editor.putString("refreshToken", refreshToken);
             editor.putString("email", email);
 
-            // Zapisz zmiany
             editor.apply();
         }
     }

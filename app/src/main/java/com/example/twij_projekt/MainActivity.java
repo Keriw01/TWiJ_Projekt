@@ -46,17 +46,14 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
 
-        // Sprawdź, czy użytkownik jest zalogowany
         boolean isLogged = getIntent().getBooleanExtra("isLogged", false);
 
         if (!isLogged) {
-            // Jeśli użytkownik nie jest zalogowany, przekieruj do LoginActivity
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
-            finish(); // Zabezpieczenie przed powrotem do MainActivity z powrotem
+            finish();
             return;
         }else{
-            // Jeśli użytkownik jest zalogowany, wyświetl MainActivity
 
             setContentView(R.layout.activity_main);
 
