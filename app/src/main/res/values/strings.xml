@@ -28,4 +28,12 @@
     <string name="logout">Wyloguj</string>
     <string name="current_user_info">Informacje o bieżącym użytkowniku</string>
     <string name="api_test">API QUIZ</string>
+    <string name="change_password">Zmiana hasła</string>
+    <string name="change_password_info">Jeżeli chcesz zmienić hasło wypełnij prawidłowo poniższe pola.</string>
+    <string name="actual_password">Aktualne hasło</string>
+    <string name="new_password">Nowe hasło</string>
+    <string name="confirm_new_password">Potwierdź nowe hasło</string>
+    <string name="change_password_text_info">Chcesz zmienić hasło ? Kliknij tutaj.</string>
+    <string name="change_password_button">Zmień hasło</string>
+    <string name="back_button">Powrót</string>
 </resources>

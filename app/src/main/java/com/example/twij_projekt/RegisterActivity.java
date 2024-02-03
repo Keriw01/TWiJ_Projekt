@@ -39,14 +39,28 @@ public class RegisterActivity extends AppCompatActivity {
         buttonRegister = findViewById(R.id.buttonRegister);
         textViewLogin = findViewById(R.id.textViewLogin);
 
-        buttonRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String email = editTextEmail.getText().toString().trim();
-                String password = editTextPassword.getText().toString().trim();
+        buttonRegister.setOnClickListener(v -> {
+            String email = editTextEmail.getText().toString().trim();
+            String password = editTextPassword.getText().toString().trim();
 
-                new RegisterActivity.RegisterTask().execute(email, password);
-            }
+
+            new ApiRepository.AuthRepository().register(email, password, new ApiRepository.AuthRepository.AuthCallback() {
+                @Override
+                public void onTokensReceived(String accessToken, String refreshToken) {
+
+                    SharedPreferencesManager.saveTokensToSharedPreferences(RegisterActivity.this, accessToken, refreshToken);
+                    Toast.makeText(RegisterActivity.this, "Zarejestrowano !", Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+
+                @Override
+                public void onTokensError(String errorMessage) {
+                    Toast.makeText(RegisterActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                }
+            });
         });
 
         textViewLogin.setOnClickListener(new View.OnClickListener() {
@@ -55,82 +69,5 @@ public class RegisterActivity extends AppCompatActivity {
                 finish();
             }
         });
-    }
-    private class RegisterTask extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... params) {
-            String email = params[0];
-            String password = params[1];
-
-            String registerUrl = "http://audiobookhsetvo.mooo.com/api/audio_book.php/registration";
-
-            OkHttpClient client = new OkHttpClient();
-
-            RequestBody requestBody = new FormBody.Builder()
-                    .add("email", email)
-                    .add("password", password)
-                    .build();
-
-            Request request = new Request.Builder()
-                    .url(registerUrl)
-                    .post(requestBody)
-                    .build();
-
-            try {
-                Response response = client.newCall(request).execute();
-
-                if (response.isSuccessful()) {
-                    return response.body().string();
-                } else {
-                    return null;
-                }
-            } catch (Exception e) {
-                Log.e("RegisterActivity", "Error during registerActivity request", e);
-                return null;
-            }
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-
-            if (result != null) {
-                try {
-                    JSONObject jsonResult = new JSONObject(result);
-
-                    if (jsonResult.has("status") && jsonResult.getString("status").equals("success")) {
-
-                        String accessToken = jsonResult.getString("accessToken");
-                        String refreshToken = jsonResult.getString("refreshToken");
-                        String email = jsonResult.getString("email");
-
-                        saveUserToSharedPreferences(accessToken, refreshToken, email);
-
-                        Toast.makeText(RegisterActivity.this, "Zarejestrowano !", Toast.LENGTH_SHORT).show();
-
-                        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-                        intent.putExtra("isLogged", true);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        Toast.makeText(RegisterActivity.this, "Rejestracja nie udana !", Toast.LENGTH_SHORT).show();
-                    }
-                } catch (JSONException e) {
-                    Log.e("RegisterActivityActivity", "Error parsing JSON response", e);
-                }
-            } else {
-                Toast.makeText(RegisterActivity.this, "Rejestracja nie udana !", Toast.LENGTH_SHORT).show();
-            }
-        }
-        private void saveUserToSharedPreferences(String accessToken, String refreshToken, String email) {
-            SharedPreferences sharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-
-            editor.putString("accessToken", accessToken);
-            editor.putString("refreshToken", refreshToken);
-            editor.putString("email", email);
-
-            editor.apply();
-        }
     }
 }

@@ -39,100 +39,35 @@ public class LoginActivity extends AppCompatActivity {
         buttonLogin = findViewById(R.id.buttonLogin);
         textRegisterView = findViewById(R.id.textViewRegister);
 
-        buttonLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String email = editTextEmail.getText().toString().trim();
-                String password = editTextPassword.getText().toString().trim();
+        buttonLogin.setOnClickListener(v -> {
+            String email = editTextEmail.getText().toString().trim();
+            String password = editTextPassword.getText().toString().trim();
 
-                new LoginTask().execute(email, password);
-            }
+            ApiRepository.AuthRepository authRepository = new ApiRepository.AuthRepository();
+            authRepository.login(email, password, new ApiRepository.AuthRepository.AuthCallback() {
+                @Override
+                public void onTokensReceived(String accessToken, String refreshToken) {
+
+                    SharedPreferencesManager.saveTokensToSharedPreferences(LoginActivity.this, accessToken, refreshToken);
+                    Toast.makeText(LoginActivity.this, "Zalogowano !", Toast.LENGTH_SHORT).show();
+                    System.out.println(accessToken);
+                    System.out.println(refreshToken);
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+
+                @Override
+                public void onTokensError(String errorMessage) {
+                    Toast.makeText(LoginActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                }
+            });
         });
 
-        textRegisterView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(intent);
-            }
+
+        textRegisterView.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+            startActivity(intent);
         });
-    }
-
-    private class LoginTask extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... params) {
-            String email = params[0];
-            String password = params[1];
-
-            String loginUrl = "http://audiobookhsetvo.mooo.com/api/audio_book.php/login";
-
-            OkHttpClient client = new OkHttpClient();
-
-            RequestBody requestBody = new FormBody.Builder()
-                    .add("email", email)
-                    .add("password", password)
-                    .build();
-
-            Request request = new Request.Builder()
-                    .url(loginUrl)
-                    .post(requestBody)
-                    .build();
-
-            try {
-                Response response = client.newCall(request).execute();
-
-                if (response.isSuccessful()) {
-                    return response.body().string();
-                } else {
-                    return null;
-                }
-            } catch (Exception e) {
-                Log.e("LoginActivity", "Error during login request", e);
-                return null;
-            }
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-
-            if (result != null) {
-                try {
-                    JSONObject jsonResult = new JSONObject(result);
-
-                    if (jsonResult.has("status") && jsonResult.getString("status").equals("success")) {
-                        String accessToken = jsonResult.getString("accessToken");
-                        String refreshToken = jsonResult.getString("refreshToken");
-                        String email = jsonResult.getString("email");
-
-                        saveUserToSharedPreferences(accessToken, refreshToken, email);
-
-                        Toast.makeText(LoginActivity.this, "Zalogowano !", Toast.LENGTH_SHORT).show();
-
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        intent.putExtra("isLogged", true);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        Toast.makeText(LoginActivity.this, "Logowanie nie powiodło się !", Toast.LENGTH_SHORT).show();
-                    }
-                } catch (JSONException e) {
-                    Log.e("LoginActivity", "Error parsing JSON response", e);
-                }
-            } else {
-                Toast.makeText(LoginActivity.this, "Logowanie nie powiodło się !", Toast.LENGTH_SHORT).show();
-            }
-        }
-
-        private void saveUserToSharedPreferences(String accessToken, String refreshToken, String email) {
-            SharedPreferences sharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-
-            editor.putString("accessToken", accessToken);
-            editor.putString("refreshToken", refreshToken);
-            editor.putString("email", email);
-
-            editor.apply();
-        }
     }
 }

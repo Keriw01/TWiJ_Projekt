@@ -29,6 +29,7 @@ package com.example.twij_projekt;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -46,23 +47,40 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
 
-        boolean isLogged = getIntent().getBooleanExtra("isLogged", false);
+        String refreshToken = SharedPreferencesManager.getRefreshTokenFromSharedPreferences(this);
 
-        if (!isLogged) {
+        if (refreshToken == null) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             finish();
             return;
         }else{
+            new ApiRepository.UserRepository().getUser(refreshToken, new ApiRepository.UserRepository.UserDataCallback() {
+                @Override
+                public void onUserReceived(String userEmail, String userId) {
+                    SharedPreferencesManager.saveUserToSharedPreferences(MainActivity.this, userEmail, userId);
+                    setContentView(R.layout.activity_main);
 
-            setContentView(R.layout.activity_main);
+                    bottomNavigationView
+                            = findViewById(R.id.bottomNavigationView);
 
-            bottomNavigationView
-                    = findViewById(R.id.bottomNavigationView);
+                    bottomNavigationView
+                            .setOnItemSelectedListener(MainActivity.this);
+                    bottomNavigationView.setSelectedItemId(R.id.slide_viewer);
+                }
 
-            bottomNavigationView
-                    .setOnItemSelectedListener(this);
-            bottomNavigationView.setSelectedItemId(R.id.slide_viewer);
+                @Override
+                public void onUserError(String errorMessage) {
+                    Toast.makeText(MainActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                    SharedPreferencesManager.clearTokensFromSharedPreferences(MainActivity.this);
+                    SharedPreferencesManager.clearUserFromSharedPreferences(MainActivity.this);
+
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(intent);
+
+                    finish();
+                }
+            });
         }
     }
 
